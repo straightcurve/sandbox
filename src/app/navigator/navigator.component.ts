@@ -22,7 +22,11 @@ export class NavigatorComponent implements OnInit {
             {
                 name: "Diff/Merge",
                 link: "/diff-merge"
-            },  
+            },
+            {
+                name: "ThreeJS",
+                link: "/three-js",
+            },
         ];
     }
 

@@ -109,6 +109,7 @@
     "cash-dom": "8.1.0",
     "diff": "4.0.2",
     "froala-editor": "3.2.6-1",
-    "tailwindcss": "2.0.3"
+    "tailwindcss": "2.0.3",
+    "three": "0.126.1"
   }
 }

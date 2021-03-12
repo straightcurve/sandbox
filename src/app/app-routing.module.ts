@@ -5,6 +5,7 @@ import { DiffMergeRoutingModule } from "./diff-merge/diff-merge-routing.module";
 import { EditorRoutingModule } from "./editor/editor-routing.module";
 import { HomeRoutingModule } from "./home/home-routing.module";
 import { PageNotFoundComponent } from "./shared/components";
+import { ThreeJsRoutingModule } from "./three-js/three-js-routing.module";
 
 const routes: Routes = [
     {
@@ -25,6 +26,7 @@ const routes: Routes = [
         DetailRoutingModule,
         EditorRoutingModule,
         DiffMergeRoutingModule,
+        ThreeJsRoutingModule,
     ],
     exports: [RouterModule],
 })
