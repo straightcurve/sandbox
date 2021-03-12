@@ -14,6 +14,7 @@ import { EditorComponent } from './editor/editor.component';
 import { HomeModule } from './home/home.module';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { SharedModule } from './shared/shared.module';
+import { ThreeJsModule } from './three-js/three-js.module';
 import { TitleModule } from './title/title.module';
 
 
@@ -37,6 +38,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HomeModule,
     DiffMergeModule,
     DetailModule,
+    ThreeJsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
