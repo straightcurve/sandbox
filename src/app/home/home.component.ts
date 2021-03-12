@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { EditorService } from "../shared/services/editor/editor.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: "app-home",
+    templateUrl: "./home.component.html",
+    styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
+    constructor(private router: Router, private editorService: EditorService) {}
 
-  constructor(private router: Router) { }
-
-  ngOnInit(): void { }
-
+    ngOnInit(): void {
+        this.editorService.create("#content", {
+            heightMin: "60vh",
+        });
+    }
 }

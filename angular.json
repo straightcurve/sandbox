@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-electron": {
+    "sandbox": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -20,7 +20,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/vendor/froala/froala_editor.min.css",
+              "src/css/tailwind.css",
+              "src/css/style.css"
             ],
             "scripts": [],
             "customWebpackConfig": {
@@ -81,24 +84,24 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "sandbox:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "angular-electron:build:dev"
+              "browserTarget": "sandbox:build:dev"
             },
             "web": {
-              "browserTarget": "angular-electron:build:web"
+              "browserTarget": "sandbox:build:web"
             },
             "production": {
-              "browserTarget": "angular-electron:build:production"
+              "browserTarget": "sandbox:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "sandbox:build"
           }
         },
         "test": {
@@ -132,7 +135,7 @@
         }
       }
     },
-    "angular-electron-e2e": {
+    "sandbox-e2e": {
       "root": "e2e",
       "projectType": "application",
       "architect": {
@@ -148,7 +151,7 @@
       }
     }
   },
-  "defaultProject": "angular-electron",
+  "defaultProject": "sandbox",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

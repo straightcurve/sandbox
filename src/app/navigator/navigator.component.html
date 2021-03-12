@@ -1,0 +1,28 @@
+<!-- Menu -->
+<div class="container mx-auto py-4">
+    <div class="flex flex-row justify-between space-x-4">
+        <div *ngFor="let menu of menus" [routerLink]="menu.link" class="group cursor-pointer">
+            <hr class="transition duration-200 ease-in-out h-1 mb-1 bg-high opacity-0 group-hover:opacity-100" />
+            <div class="transition duration-200 ease-in-out py-1 px-2 bg-mid bg-opacity-50 group-hover:bg-high border-gray-800">
+                <div class="inline text-high group-hover:text-low">
+                    <span class="bg-high group-hover:bg-low mt-1 w-5 h-5 inline-block"></span>
+                    <span class="px-1 py-0 inline-block text-xl uppercase">
+                        <strong>
+                            {{ menu.name }}
+                        </strong>
+                    </span>
+                </div>
+            </div>
+            <hr class="transition duration-200 ease-in-out h-1 mt-1 bg-high opacity-0 group-hover:opacity-100" />
+        </div>
+    </div>
+</div>
+
+<hr class="h-1 mb-0 bg-high" />
+
+<!-- Horizontal line decoration -->
+<div class="container mx-auto my-0 p-0">
+    <div class="flex flex-row justify-between">
+        <div *ngFor="let _ of [].constructor(16)" class="w-2 h-1 bg-high"></div>
+    </div>
+</div>

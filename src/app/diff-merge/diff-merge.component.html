@@ -1,0 +1,34 @@
+<div class="container mx-auto h-screen">
+    <app-page-title [title]="'Diff/Merge'">asd</app-page-title>
+
+    <div class="container mx-auto py-4">
+        <div class="flex flex-row justify-between space-x-4">
+            <div (click)="applyChanges()" class="group cursor-pointer">
+                <hr class="transition duration-200 ease-in-out h-1 mb-1 bg-high opacity-0 group-hover:opacity-100" />
+                <div class="transition duration-200 ease-in-out py-1 px-2 bg-mid bg-opacity-50 group-hover:bg-high border-gray-800">
+                    <div class="inline text-high group-hover:text-low">
+                        <span class="bg-high group-hover:bg-low mt-1 w-5 h-5 inline-block"></span>
+                        <span class="px-1 py-0 inline-block text-xl uppercase">
+                            <strong>
+                                Apply changes
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+                <hr class="transition duration-200 ease-in-out h-1 mt-1 bg-high opacity-0 group-hover:opacity-100" />
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="hidden" id="v1"></div>
+        <div id="v3"></div>
+        <div id="v2"></div>
+        <!-- <div contentEditable class="select-text" [innerHtml]="v1"></div>
+        <div contentEditable class="select-text" [innerHtml]="diff_v3"></div>
+        <div contentEditable class="select-text" [innerHtml]="diff_v2"></div>
+        <div [innerHtml]="content"></div> -->
+    </div>
+
+    <!-- <div #lol [innerHTML]="content"></div> -->
+    <!-- <div contentEditable name="content" ngDefaultControl [innerHTML]="content" [(ngModel)]="content" class="border-solid border-2 h-2/3"></div> -->
+</div>

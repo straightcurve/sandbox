@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+
+.btn {
+    @apply px-4 py-2 bg-blue-600 text-white rounded;
+}
+
+@font-face {
+    font-family: "NieR";
+    src: url("../assets/fonts/SCE-PS3-RD-R-LATIN.TTF") format("truetype"); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+    font-display: swap;
+}
+
+@tailwind utilities;

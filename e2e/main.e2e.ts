@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { SpectronClient } from 'spectron';
-
 import commonSetup from './common-setup';
 
-describe('angular-electron App', function () {
+
+describe('sandbox App', function () {
 
   commonSetup.apply(this);
 

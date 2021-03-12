@@ -1,11 +1,11 @@
 {
-  "name": "angular-electron",
-  "version": "9.0.4",
-  "description": "Angular 11 with Electron (Typescript + SASS + Hot Reload)",
-  "homepage": "https://github.com/maximegris/angular-electron",
+  "name": "sandbox",
+  "version": "1.0.0",
+  "description": "app used for random experiments",
+  "homepage": "https://github.com/straightcurve/sandbox",
   "author": {
-    "name": "Maxime GRIS",
-    "email": "maxime.gris@gmail.com"
+    "name": "Sweet Acid",
+    "email": "antoniu.ilea@gmail.com"
   },
   "keywords": [
     "angular",
@@ -29,6 +29,8 @@
     "build": "npm run electron:serve-tsc && ng build --base-href ./",
     "build:dev": "npm run build -- -c dev",
     "build:prod": "npm run build -- -c production",
+    "build:css:dev": "npx tailwindcss-cli@latest build src/css/style.css -o src/css/tailwind.css",
+    "build:css:prod": "NODE_ENV=production npx tailwindcss-cli@latest build src/css/style.css -o src/css/tailwind.css",
     "ng:serve": "ng serve -c web -o",
     "electron:serve-tsc": "tsc -p tsconfig.serve.json",
     "electron:serve": "wait-on tcp:4200 && npm run electron:serve-tsc && npx electron . --serve",
@@ -40,7 +42,6 @@
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "ng lint"
   },
-  "dependencies": {},
   "devDependencies": {
     "@angular-builders/custom-webpack": "11.0.0",
     "@angular-devkit/build-angular": "0.1102.0",
@@ -61,6 +62,7 @@
     "@angular/router": "11.2.0",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
+    "@types/diff": "5.0.0",
     "@types/jasmine": "3.6.3",
     "@types/jasminewd2": "2.0.8",
     "@types/mocha": "8.2.0",
@@ -102,5 +104,11 @@
   },
   "browserslist": [
     "chrome 83"
-  ]
+  ],
+  "dependencies": {
+    "cash-dom": "8.1.0",
+    "diff": "4.0.2",
+    "froala-editor": "3.2.6-1",
+    "tailwindcss": "2.0.3"
+  }
 }
