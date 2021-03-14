@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import Menu from "./menu";
 
 @Component({
@@ -8,8 +9,13 @@ import Menu from "./menu";
 })
 export class NavigatorComponent implements OnInit {
     public menus: Menu[] = [];
+    private sfx: {
+        ["move"]: HTMLAudioElement,
+    } = {
+        move: new Audio("assets/sound/ui-move.ogg"),
+    };
 
-    constructor() {
+    constructor(private router: Router) {
         this.menus = [
             {
                 name: "Home",
@@ -31,4 +37,13 @@ export class NavigatorComponent implements OnInit {
     }
 
     ngOnInit(): void {}
+
+    public onFocus(menu: Menu) {
+        this.sfx.move.currentTime = 0; 
+        this.sfx.move.play();
+
+        Promise.resolve().then(() => {
+            this.router.navigateByUrl(menu.link);
+        });
+    }
 }

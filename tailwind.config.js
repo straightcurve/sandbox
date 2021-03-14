@@ -47,7 +47,11 @@ module.exports = {
     }),
   },
   variants: {
-    extend: {},
+    extend: {
+        backgroundColor: ["group-focus"],
+        opacity: ["group-focus"],
+        textColor: ["group-focus"],
+    },
   },
   plugins: [],
 }

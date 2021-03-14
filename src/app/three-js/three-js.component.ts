@@ -22,13 +22,16 @@ export class ThreeJsComponent implements AfterViewInit {
         ).toString();
     }
 
-    constructor() {}
+   constructor() {}
 
     ngAfterViewInit(): void {
         const aspect_ratio = 16 / 9;
         this.game.nativeElement.height = (
             this.container.nativeElement.clientWidth / aspect_ratio
         ).toString();
-        this.game.nativeElement.src = "http://localhost:7878/game.html";
+
+        setTimeout(() => {
+            this.game.nativeElement.src = "http://localhost:7878/game.html";
+        }, 500);
     }
 }

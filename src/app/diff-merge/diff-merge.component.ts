@@ -87,6 +87,7 @@ how are we today?
         console.log("clowner", "clown", diff_word("clowner", "clown"));
         console.log("circus", "clown", diff_word("circus", "clown"));
         console.log("circ", "clown", diff_word("circ", "clown"));
+        return;
 
         let dmp = new diff_match_patch();
         let result = dmp.diff_main(this.v1, this.v2);
@@ -194,7 +195,6 @@ function diff (old: string, _new: string) {
         let z = [];
         let a = new DOMParser().parseFromString(old, "text/html");
         console.log(a.body.outerHTML);
-        debugger;
         
         for (let i = 0; i < diff.length; i++) {
             if (diff[i].added) {
@@ -227,7 +227,6 @@ function diff (old: string, _new: string) {
             start++;
         }
 
-        debugger;
         if (ar_table)
             out += `</div>`;
 
@@ -275,7 +274,6 @@ function noob_diff(v1: string, v2: string): any {
         do {
             let __uhh = diffs[len][1].trimLeft();
             index = __uhh.indexOf("\n");
-            debugger
             len++;
         } while (len < diffs.length && index === -1);
 
