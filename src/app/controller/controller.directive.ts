@@ -1,35 +1,43 @@
-import { Directive, HostListener } from "@angular/core";
+import { Directive, HostListener, OnDestroy } from "@angular/core";
 import { GameControllerService } from "./game-controller.service";
+import Xbox360Controller from "./layouts/360";
 
 @Directive({
     selector: "[appController]",
 })
-export class ControllerDirective {
-    private _gamepad: Gamepad | null = null;
+export class ControllerDirective implements OnDestroy {
+    private ctrl: Xbox360Controller | null = null;
+    private intervalHandle: NodeJS.Timeout;
 
-    constructor(
-        private controller: GameControllerService
-    ) {
+    constructor(private controller: GameControllerService) {
         const freq = 1000 / 60;
 
-        setInterval(() => {
-            if (!this._gamepad) return;
+        this.intervalHandle = setInterval(() => {
+            if (!this.ctrl) return;
 
-            controller.input.next(navigator.getGamepads()[this._gamepad.index]);
+            this.ctrl.update();
+
+            controller.input.next(this.ctrl);
+
+            this.ctrl.post_update();
         }, freq);
+    }
+
+    ngOnDestroy(): void {
+        clearInterval(this.intervalHandle);
     }
 
     @HostListener("window:gamepadconnected", ["$event"])
     public onGamepadConnected(e: GamepadEvent) {
         console.log(e.gamepad);
 
-        this._gamepad = e.gamepad;
+        this.ctrl = new Xbox360Controller(e.gamepad);
     }
 
     @HostListener("window:gamepaddisconnected", ["$event"])
     public onGamepadDisconnected(e: GamepadEvent) {
         console.log(e.gamepad);
 
-        this._gamepad = null;
+        this.ctrl = null;
     }
 }

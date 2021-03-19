@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, QueryList, ViewChildren } from "@angular/core";
 import { Router } from "@angular/router";
 import { GameControllerService } from "../controller/game-controller.service";
 import Menu from "./menu";
@@ -9,14 +9,17 @@ import Menu from "./menu";
     styleUrls: ["./navigator.component.scss"],
 })
 export class NavigatorComponent implements OnInit {
-    public axes: string = "";
     public menus: Menu[] = [];
     private sfx: {
         ["move"]: HTMLAudioElement;
     } = {
         move: new Audio("assets/sound/ui-move.ogg"),
     };
+    private activeMenuIndex: number = 0;
 
+    @ViewChildren("menus")
+    public menuElements: QueryList<ElementRef>;
+    
     constructor(
         private router: Router,
         private controller: GameControllerService
@@ -42,11 +45,22 @@ export class NavigatorComponent implements OnInit {
 
         this.controller.input.subscribe({
             next: (event) => {
-                this.axes =
-                    event.axes.map((a) => a.toFixed(2)).join(", ") +
-                    event.buttons.map((b) => b.value).join(", ");
-            }
+                if (event.isRightBumperPressed()) {
+                    this.activeMenuIndex = this.wrap(++this.activeMenuIndex, 0, this.menus.length);
+                    let arr = this.menuElements.toArray();
+                    arr[this.activeMenuIndex].nativeElement.focus();
+                }
+                if (event.isLeftBumperPressed()) {
+                    this.activeMenuIndex = this.wrap(--this.activeMenuIndex, 0, this.menus.length);
+                    let arr = this.menuElements.toArray();
+                    arr[this.activeMenuIndex].nativeElement.focus();
+                }
+            },
         });
+    }
+
+    private wrap(value: number, left: number, right: number) {
+        return value < left ? (right + value % right) : value % right; 
     }
 
     ngOnInit(): void {}
