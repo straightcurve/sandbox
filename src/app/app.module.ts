@@ -7,6 +7,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ControllerDirective } from './controller/controller.directive';
 import { CoreModule } from './core/core.module';
 import { DetailModule } from './detail/detail.module';
 import { DiffMergeModule } from './diff-merge/diff-merge.module';
@@ -27,7 +28,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, NavigatorComponent, EditorComponent],
+  declarations: [AppComponent, NavigatorComponent, EditorComponent, ControllerDirective],
   imports: [
     BrowserModule,
     FormsModule,
