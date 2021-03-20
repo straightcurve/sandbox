@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChildren } from "@angular/core";
 import { Router } from "@angular/router";
 import { GameControllerService } from "../controller/game-controller.service";
-import { Xbox360Button } from "../controller/layouts/360";
+import { Xbox360Button } from "../controller/schemes/360";
 import Menu from "./menu";
 
 @Component({

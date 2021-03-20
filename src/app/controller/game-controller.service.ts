@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import Xbox360Controller from "./layouts/360";
+import Xbox360Controller from "./schemes/360";
 
 @Injectable({
     providedIn: "root",

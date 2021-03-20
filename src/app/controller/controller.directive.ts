@@ -1,6 +1,6 @@
 import { Directive, HostListener, OnDestroy } from "@angular/core";
 import { GameControllerService } from "./game-controller.service";
-import Xbox360Controller from "./layouts/360";
+import Xbox360Controller from "./schemes/360";
 
 @Directive({
     selector: "[appController]",
