@@ -53,6 +53,7 @@ export default class Tree implements Node {
     }
 
     public selected: Node | null = null;
+    public collapsed: boolean = false;
 
     private stack: number[] = [];
 

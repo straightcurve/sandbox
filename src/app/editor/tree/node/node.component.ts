@@ -27,6 +27,18 @@ export class NodeComponent implements OnInit, Node {
 
     constructor() {}
 
+    public get collapsed(): boolean {
+        return this.node.collapsed;
+    }
+
+    public set collapsed(value: boolean) {
+        this.node.collapsed = value;
+    }
+
+    public canNavigateToChildNodes(): boolean {
+        return !this.collapsed;
+    }
+
     public getChild(index: number): Node {
         return this.childrenElements.get(index);
     }
