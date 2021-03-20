@@ -5,6 +5,10 @@ import findNodeAtDepth from "./find-node-at-depth";
 describe("tree: find node at depth", () => {
     class TestNode implements Node {
         constructor(public childNodes: Node[] = []) {}
+        
+        canNavigateToChildNodes(): boolean {
+            return true; 
+        }
 
         getChild(index: number): Node {
             return this.childNodes[index];

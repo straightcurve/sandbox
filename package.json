@@ -41,7 +41,7 @@
     "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
     "lint": "ng lint",
-    "mocha": "clear && cross-env TS_NODE_PROJECT='src/tsconfig.spec.json' mocha -r ts-node/register src/app/editor/tree/utils/**/*.spec.ts"
+    "mocha": "clear && cross-env TS_NODE_PROJECT='src/tsconfig.spec.json' mocha -r ts-node/register src/**/*.node.spec.ts"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "11.0.0",
