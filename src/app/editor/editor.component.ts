@@ -12,14 +12,16 @@ import { Xbox360Button } from "../controller/schemes/360";
 import { NavigatorService } from "../navigator/navigator.service";
 import normalize from "../shared/utils/normalize";
 import wrap from "../shared/utils/wrap";
+import Node from "./tree/node/node";
 import { NodeComponent } from "./tree/node/node.component";
+import findNodeAtDepth from "./tree/utils/find-node-at-depth";
 
 @Component({
     selector: "app-editor",
     templateUrl: "./editor.component.html",
     styleUrls: ["./editor.component.scss"],
 })
-export class EditorComponent implements OnInit, OnDestroy {
+export class EditorComponent implements OnInit, OnDestroy, Node {
     public nodes: Array<any> = [1, 2, 3, 4, 5].map((n) => ({
         name: `Action ${n}`,
         nodes: [1, 2, 3, 4, 5].map((n) => ({
@@ -39,6 +41,9 @@ export class EditorComponent implements OnInit, OnDestroy {
      */
     private previousDirection: number = 0;
 
+    private indexStack: Array<number> = [];
+
+    private hasFocus: boolean = false;
     private ngUnsubscribe: Subject<any> = new Subject();
 
     constructor(
@@ -65,16 +70,42 @@ export class EditorComponent implements OnInit, OnDestroy {
         input$
             .pipe(filter((ctrl) => ctrl.isButtonTapped(Xbox360Button.A)))
             .subscribe((ctrl) => {
-                this.nodes[this.currentNodeIndex].collapsed = !this.nodes[
-                    this.currentNodeIndex
-                ].collapsed;
+                if (!this.hasFocus) return;
+
+                this.nodes[
+                    this.indexStack[this.indexStack.length - 1]
+                ].collapsed = !this.nodes[this.indexStack.length - 1].collapsed;
+
+                if (this.nodes[this.indexStack.length - 1].collapsed) {
+                    this.indexStack.pop();
+
+                    let node = findNodeAtDepth(
+                        this,
+                        this.indexStack,
+                        -1
+                    ) as NodeComponent;
+
+                    node.focus();
+                } else {
+                    this.indexStack.push(0);
+                }
             });
 
         navigatorService.select$
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(() => {
+                this.hasFocus = true;
+                this.indexStack.push(0);
                 this.nodeElements.first.focus();
             });
+    }
+
+    public get childNodes(): Node[] {
+        return this.nodeElements.toArray();
+    }
+
+    public getChild(index: number): Node {
+        return this.nodeElements.get(index);
     }
 
     ngOnDestroy(): void {
@@ -87,20 +118,28 @@ export class EditorComponent implements OnInit, OnDestroy {
     private onMoved(y) {
         this.previousDirection = y;
 
+        let node = findNodeAtDepth(
+            this,
+            this.indexStack,
+            this.indexStack.length - 1
+        ) as NodeComponent;
+        let i = this.indexStack[this.indexStack.length - 1];
+
+        if (node === undefined) debugger;
         if (y < 0)
-            this.currentNodeIndex = wrap(
-                ++this.currentNodeIndex,
+            this.indexStack[this.indexStack.length - 1] = wrap(
+                ++i,
                 0,
-                this.nodes.length
+                node.childrenElements.length
             );
         else if (y > 0)
-            this.currentNodeIndex = wrap(
-                --this.currentNodeIndex,
+            this.indexStack[this.indexStack.length - 1] = wrap(
+                --i,
                 0,
-                this.nodes.length
+                node.childrenElements.length
             );
         else return;
 
-        this.nodeElements.get(this.currentNodeIndex).focus();
+        node.childrenElements.get(i).focus();
     }
 }

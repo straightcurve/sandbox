@@ -33,6 +33,6 @@
         *ngIf="!node.collapsed"
         class="w-full pl-8 border-l-4 border-mid border-opacity-30 select-none"
     >
-        <app-node [node]="child" *ngFor="let child of node.nodes"></app-node>
+        <app-node #children [node]="child" *ngFor="let child of node.nodes"></app-node>
     </div>
 </div>
