@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageNotFoundComponent } from './components/';
 import { WebviewDirective } from './directives/';
+import { PlaySoundDirective } from './directives/play-sound.directive';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective],
+  declarations: [PageNotFoundComponent, WebviewDirective, PlaySoundDirective],
   imports: [CommonModule, TranslateModule, FormsModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule]
+  exports: [TranslateModule, WebviewDirective, FormsModule, PlaySoundDirective]
 })
 export class SharedModule {}

@@ -4,6 +4,7 @@
         <div
             *ngFor="let menu of menus"
             #menus
+            playSound
             (focus)="onFocus(menu)"
             [routerLink]="menu.link"
             class="group cursor-pointer"
