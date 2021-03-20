@@ -65,6 +65,23 @@ export default class Xbox360Controller {
     }
 
     /**
+     * bottom-left: {
+     *      x: -1,
+     *      y: -1,
+     * }
+     * top-right: {
+     *      x: 1,
+     *      y: 1,
+     * }
+     */
+    public getDpad() {
+        return {
+            x: this.gamepad.buttons[Xbox360Button.DpadLeft].pressed ? -1 : this.gamepad.buttons[Xbox360Button.DpadRight].pressed ? 1 : 0,
+            y: this.gamepad.buttons[Xbox360Button.DpadDown].pressed ? -1 : this.gamepad.buttons[Xbox360Button.DpadUp].pressed ? 1 : 0,
+        };
+    }
+
+    /**
      * is the button pressed down this frame?
      * @param button
      */

@@ -5,11 +5,12 @@ import {
     QueryList,
     ViewChildren
 } from "@angular/core";
-import { Subject } from "rxjs";
-import { filter, takeUntil } from "rxjs/operators";
+import { combineLatest, Subject } from "rxjs";
+import { filter, map, takeUntil } from "rxjs/operators";
 import { GameControllerService } from "../controller/game-controller.service";
 import { Xbox360Button } from "../controller/schemes/360";
 import { NavigatorService } from "../navigator/navigator.service";
+import normalize from "../shared/utils/normalize";
 import wrap from "../shared/utils/wrap";
 import { NodeComponent } from "./tree/node/node.component";
 
@@ -33,7 +34,10 @@ export class EditorComponent implements OnInit, OnDestroy {
     @ViewChildren("nodes")
     public nodeElements: QueryList<NodeComponent>;
     private currentNodeIndex: number = 0;
-    private previousYInput: number = 0;
+    /**
+     * 1 means up, -1 means down, 0 means no input
+     */
+    private previousDirection: number = 0;
 
     private ngUnsubscribe: Subject<any> = new Subject();
 
@@ -41,47 +45,31 @@ export class EditorComponent implements OnInit, OnDestroy {
         private navigatorService: NavigatorService,
         private controller: GameControllerService
     ) {
-        controller.input
+        let input$ = controller.input.pipe(takeUntil(this.ngUnsubscribe));
+
+        combineLatest([
+            input$.pipe(map((ctrl) => normalize(ctrl.getLeftAxis().y))),
+            input$.pipe(map((ctrl) => normalize(ctrl.getDpad().y))),
+        ])
             .pipe(
-                takeUntil(this.ngUnsubscribe),
-                filter((ctrl) => {
-                    return (
-                        Math.sign(ctrl.getLeftAxis().y) !==
-                        Math.sign(this.previousYInput)
-                    );
-                })
+                map(([axisY, padY]) => {
+                    if (axisY !== 0) return axisY;
+                    return padY;
+                }),
+                filter(
+                    (y) => Math.sign(y) !== Math.sign(this.previousDirection)
+                )
             )
-            .subscribe((ctrl) => {
-                let { x, y } = ctrl.getLeftAxis();
-                this.previousYInput = y;
+            .subscribe(this.onMoved.bind(this));
 
-                if (y < 0)
-                    this.currentNodeIndex = wrap(
-                        ++this.currentNodeIndex,
-                        0,
-                        this.nodes.length
-                    );
-                else if (y > 0)
-                    this.currentNodeIndex = wrap(
-                        --this.currentNodeIndex,
-                        0,
-                        this.nodes.length
-                    );
-                else return;
-
-                this.nodeElements.get(this.currentNodeIndex).focus();
-            });
-
-        controller.input
-            .pipe(
-                takeUntil(this.ngUnsubscribe),
-                filter((ctrl) => ctrl.isButtonTapped(Xbox360Button.A))
-            )
+        input$
+            .pipe(filter((ctrl) => ctrl.isButtonTapped(Xbox360Button.A)))
             .subscribe((ctrl) => {
                 this.nodes[this.currentNodeIndex].collapsed = !this.nodes[
                     this.currentNodeIndex
                 ].collapsed;
             });
+
         navigatorService.select$
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(() => {
@@ -95,4 +83,24 @@ export class EditorComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {}
+
+    private onMoved(y) {
+        this.previousDirection = y;
+
+        if (y < 0)
+            this.currentNodeIndex = wrap(
+                ++this.currentNodeIndex,
+                0,
+                this.nodes.length
+            );
+        else if (y > 0)
+            this.currentNodeIndex = wrap(
+                --this.currentNodeIndex,
+                0,
+                this.nodes.length
+            );
+        else return;
+
+        this.nodeElements.get(this.currentNodeIndex).focus();
+    }
 }
