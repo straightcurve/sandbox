@@ -12,7 +12,3 @@ export class GameControllerService {
         this.input = new Subject<Xbox360Controller>();
     }
 }
-export interface InputEvent {
-    leftStick: { x: number; y: number };
-    rightStick: { x: number; y: number };
-}
