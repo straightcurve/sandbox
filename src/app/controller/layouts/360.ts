@@ -1,30 +1,23 @@
 export default class Xbox360Controller {
     gamepad: Gamepad;
-    axes: readonly any[];
-    buttons: readonly any[];
-    private is_held_down: boolean[];
+
+    public get axes(): readonly number[] {
+        return this.gamepad.axes;
+    }
+
+    public get buttons(): readonly GamepadButton[] {
+        return this.gamepad.buttons;
+    }
+
+    private was_held_down: boolean[];
+    private keyCodes: number[];
 
     constructor(from: Gamepad) {
         this.gamepad = from;
-        this.buttons = from.buttons;
-        this.axes = from.axes;
-        this.is_held_down = [];
-    }
+        this.was_held_down = [];
 
-    public isRightBumperPressed() {
-        if (this.is_held_down[5]) return false;
-
-        return this.gamepad.buttons[5].pressed;
-    }
-
-    public isRightBumperDown() {
-        return this.gamepad.buttons[5].pressed;
-    }
-
-    public isLeftBumperPressed() {
-        if (this.is_held_down[4]) return false;
-
-        return this.gamepad.buttons[4].pressed;
+        let keys = Object.values(Xbox360Button);
+        this.keyCodes = keys.slice(0, keys.length / 2) as number[];
     }
 
     public update() {
@@ -32,11 +25,50 @@ export default class Xbox360Controller {
     }
 
     public post_update() {
-        this.is_held_down[4] = this.gamepad.buttons[4].pressed;
-        this.is_held_down[5] = this.gamepad.buttons[5].pressed;
+        this.was_held_down = this.keyCodes.map((code) => {
+            return this.gamepad.buttons[Xbox360Button[code]].pressed;
+        });
+    }
+   
+    /**
+     * is the button pressed down this frame?
+     * @param button 
+     */
+    public isButtonDown(button: Xbox360Button) {
+        return this.gamepad.buttons[button].pressed;
     }
 
-    private get_button_up(index: number) {
-        return !this.gamepad.buttons[index].pressed;
+    /**
+     * has the button been tapped this frame?
+     * @param button 
+     */
+    public isButtonPressed(button: Xbox360Button) {
+        if (this.was_held_down[button]) return false;
+        return this.gamepad.buttons[button].pressed;
     }
+
+    public isButtonReleased(button: Xbox360Button) {
+        if (!this.was_held_down[button]) return false;
+        return !this.gamepad.buttons[button].pressed;
+    }
+}
+
+export enum Xbox360Button {
+    A = 0,
+    B = 1,
+    X = 2,
+    Y = 3,
+    LeftBumper = 4,
+    RightBumper = 5,
+    LeftTrigger = 6,
+    RightTrigger = 7,
+    Back = 8,
+    Start = 9,
+    LeftStick = 10,
+    RightStick = 11,
+    DpadUp = 12,
+    DpadDown = 13,
+    DpadLeft = 14,
+    DpadRight = 15,
+    Xbox = 16,
 }
