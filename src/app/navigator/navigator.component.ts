@@ -51,20 +51,20 @@ export class NavigatorComponent implements OnInit {
 
         this.controller.input.subscribe({
             next: (event) => {
-                if (event.isButtonPressed(Xbox360Button.RightBumper)) {
+                if (event.isButtonTapped(Xbox360Button.RightBumper)) {
                     this.isFocused = true;
                     this.activeMenuIndex = wrap(++this.activeMenuIndex, 0, this.menus.length);
                     let arr = this.menuElements.toArray();
                     arr[this.activeMenuIndex].nativeElement.focus();
                 }
-                if (event.isButtonPressed(Xbox360Button.LeftBumper)) {
+                if (event.isButtonTapped(Xbox360Button.LeftBumper)) {
                     this.isFocused = true;
                     this.activeMenuIndex = wrap(--this.activeMenuIndex, 0, this.menus.length);
                     let arr = this.menuElements.toArray();
                     arr[this.activeMenuIndex].nativeElement.focus();
                 }
 
-                if (this.isFocused && event.isButtonPressed(Xbox360Button.A)) {
+                if (this.isFocused && event.isButtonTapped(Xbox360Button.A)) {
                     this.isFocused = false;
                     navigatorService.select$.next();
                 }

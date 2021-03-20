@@ -68,7 +68,7 @@ export default class Xbox360Controller {
      * is the button pressed down this frame?
      * @param button
      */
-    public isButtonDown(button: Xbox360Button) {
+    public isButtonHeldDown(button: Xbox360Button) {
         return this.gamepad.buttons[button].pressed;
     }
 
@@ -76,7 +76,7 @@ export default class Xbox360Controller {
      * has the button been tapped this frame?
      * @param button
      */
-    public isButtonPressed(button: Xbox360Button) {
+    public isButtonTapped(button: Xbox360Button) {
         if (this.was_held_down[button]) return false;
         return this.gamepad.buttons[button].pressed;
     }

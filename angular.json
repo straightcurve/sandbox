@@ -22,6 +22,7 @@
             "styles": [
               "src/styles.scss",
               "src/vendor/froala/froala_editor.min.css",
+              "src/vendor/fas/css/all.css",
               "src/css/tailwind.css",
               "src/css/style.css"
             ],

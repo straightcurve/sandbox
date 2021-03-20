@@ -1,9 +1,5 @@
 <div class="flex flex-col space-y-2">
-    <div
-        #nodeElement
-        class="group cursor-pointer"
-        tabindex="0"
-    >
+    <div #nodeElement class="group cursor-pointer" tabindex="0">
         <hr
             class="transition duration-200 ease-in-out h-2 mb-1 bg-high opacity-0 group-hover:opacity-100 group-focus:opacity-100"
         />
@@ -14,8 +10,13 @@
                 class="inline text-high group-hover:text-low group-focus:text-low"
             >
                 <div
-                    class="bg-high group-hover:bg-low group-focus:bg-low mt-1 w-5 h-5 inline-block"
-                ></div>
+                    class="bg-high group-hover:bg-low group-focus:bg-low mt-1 w-5 h-5 inline-block text-center"
+                >
+                    <div *ngIf="node.nodes && node.nodes.length > 0">
+                        <i *ngIf="node.collapsed" class="fas fa-plus text-sm align-text-bottom text-low group-hover:text-high group-focus:text-high"></i>
+                        <i *ngIf="!node.collapsed" class="fas fa-minus text-sm align-text-bottom text-low group-hover:text-high group-focus:text-high"></i>
+                    </div>
+                </div>
                 <a class="px-1 py-0 inline-block align-top text-xl">
                     <strong>
                         {{ node.name }}
@@ -29,6 +30,7 @@
     </div>
 
     <div
+        *ngIf="!node.collapsed"
         class="w-full pl-8 border-l-4 border-mid border-opacity-30 select-none"
     >
         <app-node [node]="child" *ngFor="let child of node.nodes"></app-node>

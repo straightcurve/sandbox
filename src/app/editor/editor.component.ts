@@ -3,19 +3,12 @@ import {
     OnDestroy,
     OnInit,
     QueryList,
-    ViewChildren,
+    ViewChildren
 } from "@angular/core";
-import { interval, Subject } from "rxjs";
-import {
-    bufferCount,
-    debounceTime,
-    filter,
-    switchMap,
-    takeUntil,
-    throttle,
-    throttleTime,
-} from "rxjs/operators";
+import { Subject } from "rxjs";
+import { filter, takeUntil } from "rxjs/operators";
 import { GameControllerService } from "../controller/game-controller.service";
+import { Xbox360Button } from "../controller/schemes/360";
 import { NavigatorService } from "../navigator/navigator.service";
 import wrap from "../shared/utils/wrap";
 import { NodeComponent } from "./tree/node/node.component";
@@ -34,6 +27,7 @@ export class EditorComponent implements OnInit, OnDestroy {
                 name: `Action ${n}`,
             })),
         })),
+        collapsed: n & 1,
     }));
 
     @ViewChildren("nodes")
@@ -76,6 +70,17 @@ export class EditorComponent implements OnInit, OnDestroy {
                 else return;
 
                 this.nodeElements.get(this.currentNodeIndex).focus();
+            });
+
+        controller.input
+            .pipe(
+                takeUntil(this.ngUnsubscribe),
+                filter((ctrl) => ctrl.isButtonTapped(Xbox360Button.A))
+            )
+            .subscribe((ctrl) => {
+                this.nodes[this.currentNodeIndex].collapsed = !this.nodes[
+                    this.currentNodeIndex
+                ].collapsed;
             });
         navigatorService.select$
             .pipe(takeUntil(this.ngUnsubscribe))
