@@ -11,7 +11,7 @@ import { ControllerDirective } from './controller/controller.directive';
 import { CoreModule } from './core/core.module';
 import { DetailModule } from './detail/detail.module';
 import { DiffMergeModule } from './diff-merge/diff-merge.module';
-import { EditorComponent } from './editor/editor.component';
+import { EditorModule } from './editor/editor.module';
 import { HomeModule } from './home/home.module';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { SharedModule } from './shared/shared.module';
@@ -28,7 +28,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, NavigatorComponent, EditorComponent, ControllerDirective],
+  declarations: [AppComponent, NavigatorComponent, ControllerDirective],
   imports: [
     BrowserModule,
     FormsModule,
@@ -40,6 +40,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DiffMergeModule,
     DetailModule,
     ThreeJsModule,
+    EditorModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {

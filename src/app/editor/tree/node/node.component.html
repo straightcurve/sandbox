@@ -1,0 +1,36 @@
+<div class="flex flex-col space-y-2">
+    <div
+        #nodeElement
+        class="group cursor-pointer"
+        tabindex="0"
+    >
+        <hr
+            class="transition duration-200 ease-in-out h-2 mb-1 bg-high opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+        />
+        <div
+            class="transition duration-200 ease-in-out p-2 bg-mid bg-opacity-50 group-hover:bg-high group-focus:bg-high border-gray-800"
+        >
+            <div
+                class="inline text-high group-hover:text-low group-focus:text-low"
+            >
+                <div
+                    class="bg-high group-hover:bg-low group-focus:bg-low mt-1 w-5 h-5 inline-block"
+                ></div>
+                <a class="px-1 py-0 inline-block align-top text-xl">
+                    <strong>
+                        {{ node.name }}
+                    </strong>
+                </a>
+            </div>
+        </div>
+        <hr
+            class="transition duration-200 ease-in-out h-2 mt-1 bg-high opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+        />
+    </div>
+
+    <div
+        class="w-full pl-8 border-l-4 border-mid border-opacity-30 select-none"
+    >
+        <app-node [node]="child" *ngFor="let child of node.nodes"></app-node>
+    </div>
+</div>
