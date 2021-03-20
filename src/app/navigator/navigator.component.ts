@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, QueryList, ViewChildren } from "@angular
 import { Router } from "@angular/router";
 import { GameControllerService } from "../controller/game-controller.service";
 import { Xbox360Button } from "../controller/schemes/360";
+import wrap from "../shared/utils/wrap";
 import Menu from "./menu";
 import { NavigatorService } from "./navigator.service";
 
@@ -52,13 +53,13 @@ export class NavigatorComponent implements OnInit {
             next: (event) => {
                 if (event.isButtonPressed(Xbox360Button.RightBumper)) {
                     this.isFocused = true;
-                    this.activeMenuIndex = this.wrap(++this.activeMenuIndex, 0, this.menus.length);
+                    this.activeMenuIndex = wrap(++this.activeMenuIndex, 0, this.menus.length);
                     let arr = this.menuElements.toArray();
                     arr[this.activeMenuIndex].nativeElement.focus();
                 }
                 if (event.isButtonPressed(Xbox360Button.LeftBumper)) {
                     this.isFocused = true;
-                    this.activeMenuIndex = this.wrap(--this.activeMenuIndex, 0, this.menus.length);
+                    this.activeMenuIndex = wrap(--this.activeMenuIndex, 0, this.menus.length);
                     let arr = this.menuElements.toArray();
                     arr[this.activeMenuIndex].nativeElement.focus();
                 }
@@ -73,9 +74,7 @@ export class NavigatorComponent implements OnInit {
         });
     }
 
-    private wrap(value: number, left: number, right: number) {
-        return value < left ? (right + value % right) : value % right; 
-    }
+    
 
     ngOnInit(): void {}
 

@@ -29,10 +29,44 @@ export default class Xbox360Controller {
             return this.gamepad.buttons[Xbox360Button[code]].pressed;
         });
     }
-   
+
+    /**
+     * bottom-left: {
+     *      x: -1,
+     *      y: -1,
+     * }
+     * top-right: {
+     *      x: 1,
+     *      y: 1,
+     * }
+     */
+    public getLeftAxis() {
+        return {
+            x: this.gamepad.axes[0],
+            y: this.gamepad.axes[1] * -1,
+        };
+    }
+
+    /**
+     * bottom-left: {
+     *      x: -1,
+     *      y: -1,
+     * }
+     * top-right: {
+     *      x: 1,
+     *      y: 1,
+     * }
+     */
+    public getRightAxis() {
+        return {
+            x: this.gamepad.axes[2],
+            y: this.gamepad.axes[3] * -1,
+        };
+    }
+
     /**
      * is the button pressed down this frame?
-     * @param button 
+     * @param button
      */
     public isButtonDown(button: Xbox360Button) {
         return this.gamepad.buttons[button].pressed;
@@ -40,7 +74,7 @@ export default class Xbox360Controller {
 
     /**
      * has the button been tapped this frame?
-     * @param button 
+     * @param button
      */
     public isButtonPressed(button: Xbox360Button) {
         if (this.was_held_down[button]) return false;
