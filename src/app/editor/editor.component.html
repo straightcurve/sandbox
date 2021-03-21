@@ -21,8 +21,8 @@
 
         <content-image-text
             class="flex-grow pl-10"
-            *ngIf="current !== -1"
-            [title]="flattened[current].name"
+            [hidden]="current === -1 || flattened[current].depth <= 2"
+            [title]="flattened[current]?.name"
             content="'something goes here'"
         ></content-image-text>
     </div>

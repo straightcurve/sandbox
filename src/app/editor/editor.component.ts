@@ -30,6 +30,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
         return this.tree.flat.map((n, i) => ({
             name: n.data,
             focused: n.focused,
+            depth: n.depth,
         }));
     }
 
@@ -40,8 +41,6 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
      * 1 means up, -1 means down, 0 means no input
      */
     private previousDirection: number = 0;
-
-    private hasFocus: boolean = false;
     private ngUnsubscribe: Subject<any> = new Subject();
 
     constructor(
@@ -94,7 +93,10 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
                                 (n) =>
                                     new TreeNode({
                                         data: n,
-                                        children: ["Small stubby", "Small biped"].map(
+                                        children: [
+                                            "Small stubby",
+                                            "Small biped",
+                                        ].map(
                                             (n) =>
                                                 new TreeNode({
                                                     data: n,
