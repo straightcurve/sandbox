@@ -12,26 +12,18 @@
 
 <!-- Content -->
 <div class="container mx-auto py-4">
-    <div class="flex flex-row">
+    <div class="flex flex-row gap-x-2">
         <app-tree
-            class="w-1/2"
+            class="flex-none max-w-max"
             [tree]="tree"
             style="height: 36rem; max-height: 36rem"
         ></app-tree>
 
-        <div class="w-2/3 pl-10" id="content">
-            <div class="w-full bg-header p-2">
-                <div class="flex items-stretch max-h-6 gap-x-2">
-                    <div
-                        class="w-6 h-6 bg-selection group-hover:bg-container group-focus:bg-container text-center"
-                    ></div>
-                    <div class="flex-1 text-lg text-selection">
-                        {{ flattened[current]?.name }}
-                    </div>
-                </div>
-            </div>
-            <pre>currently selected index: {{ current }}</pre>
-            <pre>currently selected: {{ flattened[current] | json }}</pre>
-        </div>
+        <app-image-text
+            class="flex-grow pl-10"
+            *ngIf="current !== -1"
+            [title]="flattened[current].name"
+            content="'something goes here'"
+        ></app-image-text>
     </div>
 </div>
