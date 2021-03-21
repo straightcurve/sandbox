@@ -89,7 +89,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
                 children: [1, 2].map(
                     (n) =>
                         new TreeNode({
-                            data: `Action ${n}`,
+                            data: `Medium Biped: Sword-equipped`,
                             children: [1, 2].map(
                                 (n) =>
                                     new TreeNode({
