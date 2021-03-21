@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 
 @Component({
-    selector: "app-image-text",
+    selector: "content-image-text",
     templateUrl: "./image-text.component.html",
     styleUrls: ["./image-text.component.scss"],
 })
