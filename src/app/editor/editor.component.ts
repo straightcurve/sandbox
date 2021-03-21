@@ -12,8 +12,9 @@ import { GameControllerService } from "../controller/game-controller.service";
 import { Xbox360Button } from "../controller/schemes/360";
 import { NavigatorService } from "../navigator/navigator.service";
 import normalize from "../shared/utils/normalize";
-import Node from "./tree/node/node";
+import wrap from "../shared/utils/wrap";
 import { NodeComponent } from "./tree/node/node.component";
+import TreeNode from "./tree/node/tree-node";
 import Tree from "./tree/tree";
 
 @Component({
@@ -22,18 +23,15 @@ import Tree from "./tree/tree";
     styleUrls: ["./editor.component.scss"],
 })
 export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
-    public nodes: Array<any> = [1, 2, 3, 4, 5].map((n) => ({
-        name: `Action ${n}`,
-        nodes: [1, 2, 3, 4, 5].map((n) => ({
-            name: `Action ${n}`,
-            nodes: [1, 2, 3, 4, 5].map((n) => ({
-                name: `Action ${n}`,
-            })),
-        })),
-        collapsed: n & 1,
-    }));
+    public tree: Tree<string>;
+    public current: number = -1;
 
-    public tree: Tree;
+    public get flattened() {
+        return this.tree.flat.map((n, i) => ({
+            name: `${n.data} at depth ${n.depth} || ${i}`,
+            focused: n.focused,
+        }));
+    }
 
     @ViewChildren("nodes")
     public nodeElements: QueryList<NodeComponent>;
@@ -70,42 +68,59 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
         input$
             .pipe(filter((ctrl) => ctrl.isButtonTapped(Xbox360Button.A)))
             .subscribe((ctrl) => {
-                if (!this.hasFocus) return;
+                if (this.current === -1) return this.onMoved(-1);
 
-                this.tree.selected.collapsed = !this.tree.selected.collapsed;
-            });
-
-        navigatorService.select$
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(() => {
-                this.hasFocus = true;
-                this.tree.next();
-                (this.tree.selected as NodeComponent).focus();
+                this.tree.flat[this.current].collapsed = !this.tree.flat[
+                    this.current
+                ].collapsed;
             });
     }
 
-    ngAfterViewInit(): void {
-        this.tree = new Tree(this.nodeElements.toArray());
-    }
-
-    public get childNodes(): Node[] {
-        return this.nodeElements.toArray();
-    }
+    ngAfterViewInit(): void {}
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next();
         this.ngUnsubscribe.complete();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.tree = new Tree(
+            new TreeNode({
+                children: [1, 2].map(
+                    (n) =>
+                        new TreeNode({
+                            data: `Action ${n}`,
+                            children: [1, 2].map(
+                                (n) =>
+                                    new TreeNode({
+                                        data: `Action ${n}`,
+                                        children: [1, 2].map(
+                                            (n) =>
+                                                new TreeNode({
+                                                    data: `Action ${n}`,
+                                                })
+                                        ),
+                                    })
+                            ),
+                            collapsed: Boolean(n & 1),
+                        })
+                ),
+                collapsed: false,
+            })
+        );
+    }
 
-    private onMoved(y) {
+    private onMoved(y: number) {
         this.previousDirection = y;
+        if (y === 0) return;
+        let flattened = this.tree.flat;
+        let _wrap = (value: number) => wrap(value, 0, flattened.length);
 
-        if (y < 0) this.tree.next();
-        else if (y > 0) this.tree.previous();
-        else return;
+        if (this.current > -1) flattened[this.current].focused = false;
 
-        (this.tree.selected as NodeComponent).focus();
+        if (y < 0) this.current = _wrap(++this.current);
+        else if (y > 0) this.current = _wrap(--this.current);
+
+        flattened[this.current].focused = true;
     }
 }

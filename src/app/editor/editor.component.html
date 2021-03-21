@@ -16,9 +16,12 @@
         <div
             class="w-1/3 pl-8 border-l-4 border-mid border-opacity-30 select-none"
         >
-            <app-node #nodes [node]="node" *ngFor="let node of nodes"> </app-node>
+            <app-tree [tree]="tree"></app-tree>
         </div>
 
-        <div class="w-2/3 pl-10 h-10" id="content"></div>
+        <div class="w-2/3 pl-10 h-10" id="content">
+            <pre>currently selected index: {{ current }}</pre>
+            <pre>currently selected: {{ flattened[current] | json }}</pre>
+        </div>
     </div>
 </div>

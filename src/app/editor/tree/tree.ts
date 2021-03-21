@@ -1,65 +1,29 @@
-import Node from "./node/node";
-import findNodeAtDepth from "./utils/find-node-at-depth";
+import TreeNode from "./node/tree-node";
 
-export default class Tree implements Node {
-    public previous() {
-        if (
-            this.selected === null ||
-            (this.selected.childNodes.length > 0 &&
-                this.selected.canNavigateToChildNodes())
-        ) {
-            this.stack.push(this.childNodes.length - 1);
-            return (this.selected = findNodeAtDepth(this, this.stack));
-        }
+export default class Tree<T> {
+    private _root: TreeNode<T>;
 
-        let parent = findNodeAtDepth(this, this.stack, this.stack.length - 2);
-        if (
-            this.stack.length > 1 &&
-            this.stack[this.stack.length - 1] === parent.childNodes.length - 1
-        ) {
-            this.stack.pop();
-        }
-
-        --this.stack[this.stack.length - 1];
-
-        return (this.selected = findNodeAtDepth(this, this.stack));
+    constructor(root?: TreeNode<T>) {
+        this._root = root ?? new TreeNode<T>();
     }
 
-    public next() {
-        if (
-            this.selected === null ||
-            (this.selected.childNodes.length > 0 &&
-                this.selected.canNavigateToChildNodes())
-        ) {
-            this.stack.push(0);
-            return (this.selected = findNodeAtDepth(this, this.stack));
-        }
-
-        let parent = findNodeAtDepth(this, this.stack, this.stack.length - 2);
-        if (
-            this.stack.length > 1 &&
-            this.stack[this.stack.length - 1] === parent.childNodes.length - 1
-        ) {
-            this.stack.pop();
-        }
-
-        ++this.stack[this.stack.length - 1];
-
-        return (this.selected = findNodeAtDepth(this, this.stack));
+    public get root(): TreeNode<T> {
+        return this._root;
     }
 
-    public getChild(index: number): Node {
-        return this.childNodes[index];
+    public get flat(): Array<TreeNode<T>> {
+        return this.recFlatten(this._root);
     }
 
-    public selected: Node | null = null;
-    public collapsed: boolean = false;
+    private recFlatten(parent: TreeNode<T>) {
+        let result = [];
+        if (parent.collapsed) return result;
 
-    private stack: number[] = [];
+        for (let c = 0; c < parent.children.length; c++) {
+            result.push(parent.children[c]);
+            result = result.concat(this.recFlatten(parent.children[c]));
+        }
 
-    constructor(public childNodes: Node[] = []) {}
-
-    public canNavigateToChildNodes(): boolean {
-        return true;
+        return result;
     }
 }
