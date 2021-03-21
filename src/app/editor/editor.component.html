@@ -1,6 +1,6 @@
 <!-- Title -->
 <div class="container mx-auto">
-    <div class="w-full py-10 text-high text-3xl">
+    <div class="w-full py-10 text-selection text-3xl">
         <span
             class="uppercase"
             style="text-shadow: 5px 5px 4px var(--color-high-trans)"
@@ -13,11 +13,7 @@
 <!-- Content -->
 <div class="container mx-auto py-4">
     <div class="flex flex-row">
-        <div
-            class="w-1/3 pl-8 border-l-4 border-mid border-opacity-30 select-none"
-        >
-            <app-tree [tree]="tree"></app-tree>
-        </div>
+        <app-tree class="w-1/2" [tree]="tree" style="height: 36rem; max-height: 36rem;"></app-tree>
 
         <div class="w-2/3 pl-10 h-10" id="content">
             <pre>currently selected index: {{ current }}</pre>

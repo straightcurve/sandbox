@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import TreeNode from "./tree-node";
 
 @Component({
@@ -9,18 +9,5 @@ import TreeNode from "./tree-node";
 export class NodeComponent implements OnInit {
     @Input() public node: TreeNode<string>;
 
-    @ViewChild("nodeElement")
-    public nodeElement: ElementRef<HTMLDivElement>;
-
-    constructor() {}
-
-    public get focused(): boolean {
-        return this.node.focused;
-    }
-
     ngOnInit(): void {}
-
-    public focus() {
-        this.nodeElement.nativeElement.focus();
-    }
 }

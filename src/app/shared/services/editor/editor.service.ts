@@ -22,7 +22,7 @@ export class EditorService {
     ) {
         return new FroalaEditor(selector, options, (editor) => {
             const toolbar = document.getElementById("content").children.item(0);
-            toolbar.classList.add("bg-high");
+            toolbar.classList.add("bg-selection");
             toolbar.children.item(4).classList.add("invisible");
             //@ts-ignore
             toolbar.children.item(4).style.setProperty("height", "0");
@@ -37,9 +37,9 @@ export class EditorService {
 
             const content = document.getElementById("content").children.item(2);
 
-            content.children.item(0).classList.add("bg-low");
+            content.children.item(0).classList.add("bg-container");
             content.children.item(0).classList.add("bg-opacity-80");
-            content.children.item(0).classList.add("text-high");
+            content.children.item(0).classList.add("text-selection");
             content.children.item(0).classList.add("placeholder-high");
             content.children.item(0).classList.add("text-xl");
             //@ts-ignore
@@ -48,7 +48,7 @@ export class EditorService {
             content.children.item(0).style.setProperty("font-family", "NieR");
 
             const footer = document.getElementById("content").children.item(3);
-            footer.classList.add("bg-high");
+            footer.classList.add("bg-selection");
 
             const powered_by = document
                 .getElementById("fr-logo")
