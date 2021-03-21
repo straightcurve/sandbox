@@ -28,7 +28,7 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
     public get flattened() {
         return this.tree.flat.map((n, i) => ({
-            name: `${n.data} at depth ${n.depth} || ${i}`,
+            name: n.data,
             focused: n.focused,
         }));
     }
@@ -86,23 +86,23 @@ export class EditorComponent implements OnInit, OnDestroy, AfterViewInit {
     ngOnInit(): void {
         this.tree = new Tree(
             new TreeNode({
-                children: [1, 2].map(
-                    (n) =>
+                children: ["Desert machines", "Forest machines"].map(
+                    (n, i) =>
                         new TreeNode({
-                            data: `Medium Biped: Sword-equipped`,
-                            children: [1, 2].map(
+                            data: n,
+                            children: ["Sword-equipped", "Goliaths"].map(
                                 (n) =>
                                     new TreeNode({
-                                        data: `Action ${n}`,
-                                        children: [1, 2].map(
+                                        data: n,
+                                        children: ["Small stubby", "Small biped"].map(
                                             (n) =>
                                                 new TreeNode({
-                                                    data: `Action ${n}`,
+                                                    data: n,
                                                 })
                                         ),
                                     })
                             ),
-                            collapsed: Boolean(n & 1),
+                            collapsed: Boolean(i & 1),
                         })
                 ),
                 collapsed: false,
