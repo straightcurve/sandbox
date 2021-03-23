@@ -19,9 +19,16 @@
             style="height: 36rem; max-height: 36rem"
         ></app-tree>
 
+        <content-text
+            class="flex-grow pl-10"
+            [hidden]="current === -1 || flattened[current].depth <= 2"
+            [title]="flattened[current]?.name"
+            content="'something goes here'"
+        ></content-text>
+
         <content-image-text
             class="flex-grow pl-10"
-            *ngIf="!(current === -1 || flattened[current].depth <= 2)"
+            *ngIf="false"
             [title]="flattened[current]?.name"
             content="'something goes here'"
         ></content-image-text>

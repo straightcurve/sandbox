@@ -6,9 +6,10 @@ import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor.component';
 import { NodeComponent } from './tree/node/node.component';
 import { TreeComponent } from './tree/tree.component';
+import { TextComponent } from './content/text/text.component';
 
 @NgModule({
-  declarations: [EditorComponent, NodeComponent, TreeComponent, ImageTextComponent],
+  declarations: [EditorComponent, NodeComponent, TreeComponent, ImageTextComponent, TextComponent],
   imports: [CommonModule, SharedModule, EditorRoutingModule]
 })
 export class EditorModule { }
