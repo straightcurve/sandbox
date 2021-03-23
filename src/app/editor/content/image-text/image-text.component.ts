@@ -2,9 +2,7 @@ import {
     AfterViewInit,
     Component,
     ElementRef,
-    HostListener,
     Input,
-
     ViewChild
 } from "@angular/core";
 
@@ -29,11 +27,6 @@ export class ImageTextComponent implements AfterViewInit {
 
     @ViewChild("container")
     public contentElem: ElementRef<HTMLDivElement>;
-
-    @HostListener("window:resize")
-    public onResize() {
-        this.recalculateContainerSize();
-    }
 
     private recalculateContainerSize() {
         let header_height = this.headerElem.nativeElement.clientHeight;

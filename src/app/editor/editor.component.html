@@ -11,7 +11,7 @@
 </div>
 
 <!-- Content -->
-<div class="container mx-auto py-4">
+<div class="container mx-auto my-4">
     <div class="flex flex-row gap-x-2">
         <app-tree
             class="flex-none w-1/3 max-w-1/2"
@@ -21,7 +21,7 @@
 
         <content-image-text
             class="flex-grow pl-10"
-            [hidden]="current === -1 || flattened[current].depth <= 2"
+            *ngIf="!(current === -1 || flattened[current].depth <= 2)"
             [title]="flattened[current]?.name"
             content="'something goes here'"
         ></content-image-text>

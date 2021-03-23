@@ -19,16 +19,14 @@
             <div
                 class="w-6 h-6 text-center bg-selection group-hover:bg-container group-focus:bg-container"
             >
-                <div *ngIf="node.children && node.children.length > 0">
-                    <i
-                        *ngIf="node.collapsed"
-                        class="fas fa-plus text-base align-text-bottom text-container group-hover:text-selection group-focus:text-selection"
-                    ></i>
-                    <i
-                        *ngIf="!node.collapsed"
-                        class="fas fa-minus text-base align-text-bottom text-container group-hover:text-selection group-focus:text-selection"
-                    ></i>
-                </div>
+                <i
+                    class="fas text-base align-text-bottom text-container group-hover:text-selection group-focus:text-selection"
+                    *ngIf="node.children && node.children.length > 0"
+                    [ngClass]="{
+                        'fa-plus': node.collapsed,
+                        'fa-minus': !node.collapsed
+                    }"
+                ></i>
             </div>
             <div class="flex-1 text-lg">
                 <strong> {{ node.data }} </strong>
