@@ -2,7 +2,14 @@ module.exports = {
     purge: ["src/index.html"],
     darkMode: false, // or 'media' or 'class'
     theme: {
-        extend: {},
+        extend: {
+            height: {
+                144: "36rem",
+            },
+            "max-height": {
+                144: "36rem",
+            },
+        },
         backgroundColor: (theme) => ({
             ...theme("colors"),
             high: "#57544a",
