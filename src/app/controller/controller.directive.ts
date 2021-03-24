@@ -31,15 +31,11 @@ export class ControllerDirective implements OnDestroy {
 
     @HostListener("window:gamepadconnected", ["$event"])
     public onGamepadConnected(e: GamepadEvent) {
-        console.log(e.gamepad);
-
         this.ctrl = new Xbox360Controller(e.gamepad);
     }
 
     @HostListener("window:gamepaddisconnected", ["$event"])
     public onGamepadDisconnected(e: GamepadEvent) {
-        console.log(e.gamepad);
-
         this.ctrl = null;
     }
 }

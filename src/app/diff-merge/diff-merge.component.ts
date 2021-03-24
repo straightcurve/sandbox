@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, NgZone, OnInit, ViewChild } from "@angular/core";
+import {
+    AfterViewInit,
+    Component,
+    NgZone,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import $ from "cash-dom";
 import { diffLines } from "diff";
 import { diff_match_patch } from "../../vendor/google/diff.js";
@@ -83,10 +89,6 @@ and some other data goes here.
 how are we today?
 `;
 
-        console.log("clown", "clowner", diff_word("clown", "clowner"));
-        console.log("clowner", "clown", diff_word("clowner", "clown"));
-        console.log("circus", "clown", diff_word("circus", "clown"));
-        console.log("circ", "clown", diff_word("circ", "clown"));
         return;
 
         let dmp = new diff_match_patch();
@@ -96,45 +98,55 @@ how are we today?
 
         let self = this;
 
-        this.v1editor = this.editorService.create_("#v1", {
-            heightMin: "25vh",
-            events: {
-                contentChanged: function() {
-                    // self.v3 = dmp.patch_toText(dmp.patch_make(self.v1, self.v3));
-                    // self.v1 = this.html.get();
-                }
+        this.v1editor = this.editorService.create_(
+            "#v1",
+            {
+                heightMin: "25vh",
+                events: {
+                    contentChanged: function () {
+                        // self.v3 = dmp.patch_toText(dmp.patch_make(self.v1, self.v3));
+                        // self.v1 = this.html.get();
+                    },
+                },
+                readOnly: true,
             },
-            readOnly: true,
-        }, () => {
-            this.v1editor.html.set(this.v1);
-        });
-        this.v2editor = this.editorService.create_("#v2", {
-            heightMin: "25vh",
-            events: {
-                contentChanged: function() {
-                    self.v2 = this.html.get();
-                    self.diff_v2 = diff(self.v3, self.v2);
-                    // self.v2 = this.html.get();
-                    // self.diff_v2 = diff(self.v3, self.v2);
-                    // self.v2editor.html.set(self.diff_v2);
-                }
+            () => {
+                this.v1editor.html.set(this.v1);
+            }
+        );
+        this.v2editor = this.editorService.create_(
+            "#v2",
+            {
+                heightMin: "25vh",
+                events: {
+                    contentChanged: function () {
+                        self.v2 = this.html.get();
+                        self.diff_v2 = diff(self.v3, self.v2);
+                        // self.v2 = this.html.get();
+                        // self.diff_v2 = diff(self.v3, self.v2);
+                        // self.v2editor.html.set(self.diff_v2);
+                    },
+                },
             },
-        }, () => {
-            this.diff_v2 = diff(this.v3, this.v2);
-            // this.v2editor.html.set(this.diff_v2);
-        });
-        this.v3editor = this.editorService.create_("#v3", {
-            heightMin: "25vh",
-            readOnly: true,
-        }, () => {
-            this.diff_v3 = diff(this.v1, this.v3);
-            this.v3editor.html.set(this.diff_v2);
-        });
+            () => {
+                this.diff_v2 = diff(this.v3, this.v2);
+                // this.v2editor.html.set(this.diff_v2);
+            }
+        );
+        this.v3editor = this.editorService.create_(
+            "#v3",
+            {
+                heightMin: "25vh",
+                readOnly: true,
+            },
+            () => {
+                this.diff_v3 = diff(this.v1, this.v3);
+                this.v3editor.html.set(this.diff_v2);
+            }
+        );
 
         // self.v2 = createTwoFilesPatch("v1", "v2", this.v1, this.v2);
         // self.v3 = createTwoFilesPatch("v1", "v3", this.v1, this.v3);
-
-
 
         // let newest = createPatch("v2", this.v3, this.v2);
         // this.content = applyPatch(newest, v2);
@@ -150,16 +162,18 @@ how are we today?
     applyChanges() {
         let html = $(this.diff_v2);
         let out = "";
-        html = html.map((c, elem) => {
-            let cash = $(elem);
-            if (cash.hasClass("bg-red-400"))
-                return null;
-            return elem;
-        }).filter((e, elem) => {
-            return elem !== null && elem.textContent !== "\n";
-        }).each((e, elem) => {
-            out += elem.outerHTML;
-        });
+        html = html
+            .map((c, elem) => {
+                let cash = $(elem);
+                if (cash.hasClass("bg-red-400")) return null;
+                return elem;
+            })
+            .filter((e, elem) => {
+                return elem !== null && elem.textContent !== "\n";
+            })
+            .each((e, elem) => {
+                out += elem.outerHTML;
+            });
         console.log(out);
         this.v1editor.html.set(out);
         $("#v1").removeClass("hidden");
@@ -170,7 +184,7 @@ how are we today?
     }
 }
 
-function diff (old: string, _new: string) {
+function diff(old: string, _new: string) {
     let diff = diffLines(old, _new);
 
     holy_shit();
@@ -184,8 +198,7 @@ function diff (old: string, _new: string) {
                 out += `<div class="bg-green-400">${diff[i].value}</div>`;
             else if (diff[i].removed)
                 out += `<div class="bg-red-400">${diff[i].value}</div>`;
-            else
-                out += `${diff[i].value}`;
+            else out += `${diff[i].value}`;
         }
     }
 
@@ -195,15 +208,13 @@ function diff (old: string, _new: string) {
         let z = [];
         let a = new DOMParser().parseFromString(old, "text/html");
         console.log(a.body.outerHTML);
-        
+
         for (let i = 0; i < diff.length; i++) {
             if (diff[i].added) {
                 out += `<div class="bg-green-400">${diff[i].value}</div>`;
-            }
-            else if (diff[i].removed)
+            } else if (diff[i].removed)
                 out += `<div class="bg-red-400">${diff[i].value}</div>`;
-            else
-                out += `${diff[i].value}`;
+            else out += `${diff[i].value}`;
         }
     }
 
@@ -213,22 +224,22 @@ function diff (old: string, _new: string) {
             out += `<div class="bg-green-400">${diff[start].value}`;
         else if (diff[start].removed)
             out += `<div class="bg-red-400">${diff[start].value}`;
-        else
-            out += `${diff[start].value}`;
+        else out += `${diff[start].value}`;
         start++;
 
-        while (start < diff.length && diff[start].value.indexOf("</table>") === -1) {
+        while (
+            start < diff.length &&
+            diff[start].value.indexOf("</table>") === -1
+        ) {
             if (diff[start].added)
                 out += `<div class="bg-green-400">${diff[start].value}</div>`;
             else if (diff[start].removed)
                 out += `<div class="bg-red-400">${diff[start].value}</div>`;
-            else
-                out += `${diff[start].value}`;
+            else out += `${diff[start].value}`;
             start++;
         }
 
-        if (ar_table)
-            out += `</div>`;
+        if (ar_table) out += `</div>`;
 
         return ++start;
     }

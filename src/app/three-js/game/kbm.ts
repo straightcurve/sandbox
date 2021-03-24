@@ -1,5 +1,4 @@
 import { fromEvent, Observable, Subject } from "rxjs";
-import { tap } from "rxjs/operators";
 import * as THREE from "three";
 import MainActionMap from "./input/action-maps/main";
 
@@ -16,17 +15,13 @@ export default class KeyboardMouse implements MainActionMap {
         this.move_direction = new THREE.Vector2();
 
         fromEvent(document, "keydown")
-            .pipe(tap(console.log))
             .subscribe((e: KeyboardEvent) => this.onKeyDown(e));
 
         fromEvent(document, "keyup")
-            .pipe(tap(console.log))
             .subscribe((e: KeyboardEvent) => this.onKeyUp(e));
     }
 
     private onKeyDown(e: KeyboardEvent) {
-        console.log(e.code, e.key);
-
         switch (e.code) {
             case "KeyW":
                 this.move_direction.y = 1;
@@ -48,8 +43,6 @@ export default class KeyboardMouse implements MainActionMap {
     }
 
     private onKeyUp(e: KeyboardEvent) {
-        console.log(e.code, e.key);
-
         switch (e.code) {
             case "KeyW":
                 this.move_direction.y = 0;
