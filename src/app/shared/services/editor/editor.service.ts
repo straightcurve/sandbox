@@ -32,7 +32,7 @@ export class EditorService {
                 let num = Number.parseInt(t);
                 if (isNaN(num)) continue;
 
-                tools[num].style.setProperty("fill", "var(--color-low)");
+                tools[num].style.setProperty("fill", "var(--color-container)");
             }
 
             const content = document.getElementById("content").children.item(2);
@@ -54,7 +54,7 @@ export class EditorService {
                 .getElementById("fr-logo")
                 .children.item(0);
             //@ts-ignore
-            powered_by.style.setProperty("color", "var(--color-low)");
+            powered_by.style.setProperty("color", "var(--color-container)");
             //@ts-ignore
             powered_by.style.setProperty("font-family", "NieR");
 
@@ -62,7 +62,7 @@ export class EditorService {
                 .item(0)
                 .children.item(1);
             //@ts-ignore
-            powered_by_froala_svg.style.setProperty("fill", "var(--color-low)");
+            powered_by_froala_svg.style.setProperty("fill", "var(--color-container)");
             //@ts-ignore
             powered_by_froala_svg.style.setProperty("font-family", "NieR");
 

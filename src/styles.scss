@@ -9,14 +9,26 @@ body {
 }
 
 :root {
-    --color-high: rgb(87, 84, 74);
-    --color-low: rgb(218, 212, 187);
-    --color-mid: rgb(151, 147, 129);
-    --color-alert: rgb(205, 102, 77);
-    --color-high-trans: rgba(87, 84, 74, 0.6);
-    --color-low-trans: rgba(218, 212, 187, 0.8);
-    --color-alert-trans: rgba(205, 102, 77, 0.7);
-
+    /**
+     *  bone
+     */
+    --color-container: #d6d0b8ff;
+    /**
+     *  sage
+     */
+    --color-page: #c6c3a9ff;
+    /**
+     * khaki-web
+     */
+    --color-header: #b0ab97ff;
+    /**
+     * black-olive
+     */
+    --color-selection: #454239ff;
+    /**
+     * medium-carmine
+     */
+    --color-alert: #b3543eff;
     font-family: "NieR";
 }
 
