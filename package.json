@@ -40,7 +40,8 @@
     "test:watch": "ng test",
     "e2e": "npm run build:prod && cross-env TS_NODE_PROJECT='e2e/tsconfig.e2e.json' mocha --timeout 300000 --require ts-node/register e2e/**/*.e2e.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "mocha": "clear && cross-env TS_NODE_PROJECT='src/tsconfig.spec.json' mocha -r ts-node/register src/**/*.node.spec.ts"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "11.0.0",
@@ -63,6 +64,7 @@
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
     "@types/aframe": "1.0.3",
+    "@types/chai": "4.2.15",
     "@types/diff": "5.0.0",
     "@types/express": "4.17.11",
     "@types/jasmine": "3.6.3",

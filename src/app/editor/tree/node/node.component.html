@@ -1,0 +1,40 @@
+<div
+    playSound
+    focus
+    [focused]="node.focused"
+    class="group cursor-pointer"
+    tabindex="0"
+>
+    <hr
+        class="transition duration-200 ease-in-out h-1.5 mb-1 bg-selection opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+    />
+
+    <div
+        class="w-full p-2 transition duration-200 ease-in-out group-hover:bg-selection group-focus:bg-selection border-gray-800"
+        [style.padding-left.rem]="node.depth * 1.15"
+    >
+        <div
+            class="flex items-stretch max-h-6 gap-x-2 text-selection group-hover:text-container group-focus:text-container"
+        >
+            <div
+                class="w-6 h-6 text-center bg-selection group-hover:bg-container group-focus:bg-container"
+            >
+                <i
+                    class="fas text-base align-text-bottom text-container group-hover:text-selection group-focus:text-selection"
+                    *ngIf="node.children && node.children.length > 0"
+                    [ngClass]="{
+                        'fa-plus': node.collapsed,
+                        'fa-minus': !node.collapsed
+                    }"
+                ></i>
+            </div>
+            <div class="flex-1 text-lg">
+                <strong> {{ node.data }} </strong>
+            </div>
+        </div>
+    </div>
+
+    <hr
+        class="transition duration-200 ease-in-out h-1.5 mt-1 bg-selection opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+    />
+</div>

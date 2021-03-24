@@ -1,11 +1,26 @@
 <!-- Menu -->
 <div class="container mx-auto py-4">
     <div class="flex flex-row justify-between space-x-4">
-        <div *ngFor="let menu of menus" (focus)="onFocus(menu)" [routerLink]="menu.link" class="group cursor-pointer">
-            <hr class="transition duration-200 ease-in-out h-1 mb-1 bg-high opacity-0 group-hover:opacity-100 group-focus:opacity-100" />
-            <div class="transition duration-200 ease-in-out py-1 px-2 bg-mid bg-opacity-50 group-hover:bg-high group-focus:bg-high border-gray-800">
-                <div class="inline text-high group-hover:text-low group-focus:text-low">
-                    <span class="bg-high group-hover:bg-low group-focus:bg-low mt-1 w-5 h-5 inline-block"></span>
+        <div
+            *ngFor="let menu of menus"
+            #menus
+            playSound
+            (focus)="onFocus(menu)"
+            [routerLink]="menu.link"
+            class="group cursor-pointer"
+        >
+            <hr
+                class="transition duration-200 ease-in-out h-1 mb-1 bg-selection opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+            />
+            <div
+                class="transition duration-200 ease-in-out py-1 px-2 bg-header bg-opacity-50 group-hover:bg-selection group-focus:bg-selection border-gray-800"
+            >
+                <div
+                    class="inline text-selection group-hover:text-container group-focus:text-container"
+                >
+                    <span
+                        class="bg-selection group-hover:bg-container group-focus:bg-container mt-1 w-5 h-5 inline-block"
+                    ></span>
                     <span class="px-1 py-0 inline-block text-xl uppercase">
                         <strong>
                             {{ menu.name }}
@@ -13,16 +28,20 @@
                     </span>
                 </div>
             </div>
-            <hr class="transition duration-200 ease-in-out h-1 mt-1 bg-high opacity-0 group-hover:opacity-100 group-focus:opacity-100" />
+            <hr
+                class="transition duration-200 ease-in-out h-1 mt-1 bg-selection opacity-0 group-hover:opacity-100 group-focus:opacity-100"
+            />
         </div>
     </div>
 </div>
 
-<hr class="h-1 mb-0 bg-high" />
+<hr class="h-1 mb-0 bg-selection" />
 
 <!-- Horizontal line decoration -->
 <div class="container mx-auto my-0 p-0">
     <div class="flex flex-row justify-between">
-        <div *ngFor="let _ of [].constructor(16)" class="w-2 h-1 bg-high"></div>
+        <div *ngFor="let _ of [].constructor(16)" class="w-2 h-1 bg-selection"></div>
     </div>
 </div>
+
+<!-- <pre>{{ this.debug }}</pre> -->

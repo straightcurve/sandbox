@@ -22,7 +22,7 @@ export class EditorService {
     ) {
         return new FroalaEditor(selector, options, (editor) => {
             const toolbar = document.getElementById("content").children.item(0);
-            toolbar.classList.add("bg-high");
+            toolbar.classList.add("bg-selection");
             toolbar.children.item(4).classList.add("invisible");
             //@ts-ignore
             toolbar.children.item(4).style.setProperty("height", "0");
@@ -32,14 +32,14 @@ export class EditorService {
                 let num = Number.parseInt(t);
                 if (isNaN(num)) continue;
 
-                tools[num].style.setProperty("fill", "var(--color-low)");
+                tools[num].style.setProperty("fill", "var(--color-container)");
             }
 
             const content = document.getElementById("content").children.item(2);
 
-            content.children.item(0).classList.add("bg-low");
+            content.children.item(0).classList.add("bg-container");
             content.children.item(0).classList.add("bg-opacity-80");
-            content.children.item(0).classList.add("text-high");
+            content.children.item(0).classList.add("text-selection");
             content.children.item(0).classList.add("placeholder-high");
             content.children.item(0).classList.add("text-xl");
             //@ts-ignore
@@ -48,13 +48,13 @@ export class EditorService {
             content.children.item(0).style.setProperty("font-family", "NieR");
 
             const footer = document.getElementById("content").children.item(3);
-            footer.classList.add("bg-high");
+            footer.classList.add("bg-selection");
 
             const powered_by = document
                 .getElementById("fr-logo")
                 .children.item(0);
             //@ts-ignore
-            powered_by.style.setProperty("color", "var(--color-low)");
+            powered_by.style.setProperty("color", "var(--color-container)");
             //@ts-ignore
             powered_by.style.setProperty("font-family", "NieR");
 
@@ -62,7 +62,7 @@ export class EditorService {
                 .item(0)
                 .children.item(1);
             //@ts-ignore
-            powered_by_froala_svg.style.setProperty("fill", "var(--color-low)");
+            powered_by_froala_svg.style.setProperty("fill", "var(--color-container)");
             //@ts-ignore
             powered_by_froala_svg.style.setProperty("font-family", "NieR");
 
