@@ -10,17 +10,19 @@ export class ControllerDirective implements OnDestroy {
     private intervalHandle: NodeJS.Timeout;
 
     constructor(private controller: GameControllerService) {
-        const freq = 1000 / 60;
-
-        this.intervalHandle = setInterval(() => {
-            if (!this.ctrl) return;
+        const loop = () => {
+            if (!this.ctrl) return requestAnimationFrame(loop);
 
             this.ctrl.update();
 
             controller.input.next(this.ctrl);
 
             this.ctrl.post_update();
-        }, freq);
+
+            requestAnimationFrame(loop);
+        };
+
+        requestAnimationFrame(loop);
     }
 
     ngOnDestroy(): void {
