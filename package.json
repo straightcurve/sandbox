@@ -44,8 +44,8 @@
     "mocha": "clear && cross-env TS_NODE_PROJECT='src/tsconfig.spec.json' mocha -r ts-node/register src/**/*.node.spec.ts"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "11.0.0",
-    "@angular-devkit/build-angular": "0.1102.0",
+    "@angular-builders/custom-webpack": "14.0.1",
+    "@angular-devkit/build-angular": "14.2.8",
     "@angular-eslint/builder": "1.2.0",
     "@angular-eslint/eslint-plugin": "1.2.0",
     "@angular-eslint/eslint-plugin-template": "1.2.0",
